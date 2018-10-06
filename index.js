@@ -10,7 +10,14 @@ async function getLastCommit() {
   try {
     const lastCommitLog = new LastCommitLog();
     const { hash, gitTag } = await lastCommitLog.getLastCommit();
-    return { hash, gitTag };
+    // Add gitTag only when it exists
+    const result = {
+      hash
+    };
+    if (gitTag) {
+      result.tag = gitTag;
+    }
+    return result;
   } catch (err) {}
 }
 
