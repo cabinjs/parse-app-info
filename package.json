@@ -26,7 +26,7 @@
   "devDependencies": {
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "ava": "latest",
+    "ava": "1.0.0-beta.8",
     "codecov": "latest",
     "cross-env": "latest",
     "eslint": "latest",
@@ -36,10 +36,12 @@
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
+    "mocked-env": "1.2.1",
     "nyc": "latest",
     "prettier": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
+    "testdouble": "3.8.1",
     "xo": "latest"
   },
   "engines": {
