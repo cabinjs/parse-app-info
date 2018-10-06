@@ -14,6 +14,7 @@ async function getLastCommit() {
     const result = {
       hash
     };
+    /* istanbul ignore if */
     if (gitTag) {
       result.tag = gitTag;
     }
