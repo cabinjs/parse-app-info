@@ -14,6 +14,7 @@
 
 * [Install](#install)
 * [Usage](#usage)
+* [Available info](#available-info)
 * [Contributors](#contributors)
 * [License](#license)
 
@@ -43,6 +44,25 @@ const parseAppInfo = require('parse-app-info');
   console.log('appInfo', appInfo);
 })();
 ```
+
+
+## Available info
+
+| Property    | Description                         |
+| ----------- | ----------------------------------- |
+| environment | The value of NODE_ENV               |
+| hostname    | Name of the computer                |
+| name        | Name of the app from `package.json` |
+| node        | Version if node.js running the app  |
+| pid         | Process ID as in `process.pid`      |
+| version     | Version of the app `package.json`   |
+
+Additional properties when the app is in a git repository
+
+| Property | Description                                                        |
+| -------- | ------------------------------------------------------------------ |
+| hash     | git hash of latest commit if the app                               |
+| tag      | the latest git tag. Property is not available when there is no tag |
 
 
 ## Contributors
