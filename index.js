@@ -14,7 +14,6 @@ async function getLastCommit() {
     const result = {
       hash
     };
-    /* istanbul ignore if */
     if (gitTag) {
       result.tag = gitTag;
     }
@@ -58,8 +57,8 @@ async function parseAppInfo() {
     version: packageInfo.pkg.version,
     node: process.version,
     ...lastCommit,
-    environment: /* istanbul ignore next */ NODE_ENV || 'development',
-    hostname: /* istanbul ignore next */ HOSTNAME || require('os').hostname(),
+    environment: NODE_ENV || 'development',
+    hostname: HOSTNAME || require('os').hostname(),
     pid: process.pid
   };
 }
