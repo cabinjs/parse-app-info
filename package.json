@@ -20,33 +20,37 @@
     "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)"
   ],
   "dependencies": {
-    "last-commit-log": "^1.0.13",
+    "last-commit-log": "^2.0.0",
     "read-pkg-up": "^4.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "ava": "1.0.0-beta.8",
+    "ava": "1.0.1",
     "codecov": "latest",
     "cross-env": "latest",
     "eslint": "latest",
-    "eslint-config-prettier": "latest",
     "eslint-config-xo-lass": "latest",
-    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-node": "^8.0.1",
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
-    "mocked-env": "1.2.1",
+    "mocked-env": "1.2.4",
     "nyc": "latest",
-    "prettier": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
-    "testdouble": "3.8.1",
+    "testdouble": "3.9.2",
     "xo": "latest"
   },
   "engines": {
-    "node": ">=8.3"
+    "node": ">=6.4"
   },
+  "files": [
+    "lib"
+  ],
   "homepage": "https://github.com/pke/parse-app-info",
   "husky": {
     "hooks": {
@@ -79,7 +83,7 @@
       ]
     }
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "nyc": {
     "check-coverage": true,
     "lines": 100,
@@ -107,11 +111,14 @@
   },
   "scripts": {
     "ava": "cross-env NODE_ENV=test ava",
+    "build": "npm run build:clean && npm run build:lib",
+    "build:clean": "rimraf lib",
+    "build:lib": "babel src --out-dir lib",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && remark . -qfo",
+    "lint": "xo && remark . -qfo && eslint lib",
     "nyc": "cross-env NODE_ENV=test nyc ava",
-    "test": "npm run lint && npm run ava",
-    "test-coverage": "npm run lint && npm run nyc"
+    "test": "npm run build && npm run lint && npm run ava",
+    "test-coverage": "npm run build && npm run lint && npm run nyc"
   },
   "xo": {
     "prettier": true,
