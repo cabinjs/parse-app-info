@@ -17,6 +17,7 @@
     ]
   },
   "contributors": [
+    "Nick Baugh <niftylettuce@gmail.com> (https://niftylettuce.com)",
     "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)"
   ],
   "dependencies": {
@@ -46,7 +47,7 @@
     "xo": "latest"
   },
   "engines": {
-    "node": ">=6.4"
+    "node": ">=8.8.1"
   },
   "files": [
     "lib"

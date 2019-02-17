@@ -7,12 +7,12 @@ test.afterEach(t => {
   t.context.restoreEnv();
 });
 
-async function run(t, input = [], expected = input) {
+function run(t, input = [], expected = input) {
   t.context.restoreEnv = mockedEnv({
     NODE_ENV: input[0],
     HOSTNAME: input[1]
   });
-  const appInfo = await parseAppInfo();
+  const appInfo = parseAppInfo();
   t.is(appInfo.environment, expected[0]);
   t.is(appInfo.hostname, expected[1]);
 }

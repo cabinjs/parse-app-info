@@ -10,28 +10,28 @@ test.afterEach(() => {
   td.reset();
 });
 
-test('does not include missing git info', async t => {
-  td.when(t.context.LastCommitLog.prototype.getLastCommit()).thenReject();
-  const appInfo = await t.context.parseAppInfo();
+test('does not include missing git info', t => {
+  td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({});
+  const appInfo = t.context.parseAppInfo();
   t.is(appInfo.hash, undefined);
   t.is(appInfo.tag, undefined);
 });
 
-test('does not include missing git tag', async t => {
-  td.when(t.context.LastCommitLog.prototype.getLastCommit()).thenResolve({
+test('does not include missing git tag', t => {
+  td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({
     hash: 0xdeadbeadd00de
   });
-  const appInfo = await t.context.parseAppInfo();
+  const appInfo = t.context.parseAppInfo();
   t.is(appInfo.hash, 0xdeadbeadd00de);
   t.is(appInfo.tag, undefined);
 });
 
-test('returns this packages info', async t => {
-  td.when(t.context.LastCommitLog.prototype.getLastCommit()).thenResolve({
+test('returns this packages info', t => {
+  td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({
     hash: 0xdeadbeadd00de,
     gitTag: '1.0.2'
   });
-  const appInfo = await t.context.parseAppInfo();
+  const appInfo = t.context.parseAppInfo();
   t.is(appInfo.node, process.version);
   t.is(appInfo.environment, 'test');
   t.is(appInfo.hostname, require('os').hostname());

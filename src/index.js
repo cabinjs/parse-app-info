@@ -1,54 +1,29 @@
 const readPkgUp = require('read-pkg-up');
 const LastCommitLog = require('last-commit-log');
 
-/**
- * A safe way to query for git infos.
- *
- * @return {object|undefined} Returns {hash, gitTag} or undefined in case of an error
- */
-async function getLastCommit() {
-  try {
-    const lastCommitLog = new LastCommitLog();
-    const { hash, gitTag } = await lastCommitLog.getLastCommit();
-    // Add gitTag only when it exists
-    const result = {
-      hash
-    };
-    if (gitTag) {
-      result.tag = gitTag;
-    }
-    return result;
-  } catch (err) {}
-}
+//
+// Information about the app.
+//
+// The git infos can be missing if the project has no commit yet
+// or is not connected to a git repo.
+//
+// * name - The name of the app
+// * version - The version of the app
+// * node - NodeJS version
+// * hash - Last git commit hash
+// * tag - Last git tag, if any
+// * environment - Nodejs environment the app is run in
+// * hostname - Name of the computer the app is run on
+// * pid - Process ID of the app
+//
 
-/**
- * Information about the app.
- *
- * The git infos can be missing if the project has no commit yet
- * or is not connected to a git repo.
- *
- * @typedef {Object} AppInfo
- * @property {string} name The name of the app
- * @property {string} version The version of the app
- * @property {string} node NodeJS version
- * @property {string} hash Last git commit hash
- * @property {string} tag Last git tag, if any
- * @property {string} environment Nodejs environment the app is run in
- * @property {string} hostname Name of the computer the app is run on
- * @property {number} pid Process ID of the app
- */
-
-/**
- * Retrieves informations about the current running app.
- *
- * @async
- * @return {Promise<AppInfo>} A promise that resolves the app info
- */
-async function parseAppInfo() {
-  const [packageInfo, lastCommit] = await Promise.all([
-    readPkgUp(),
-    getLastCommit()
-  ]);
+// Retrieves informations about the current running app.
+function parseAppInfo() {
+  const packageInfo = readPkgUp.sync();
+  const lastCommitLog = new LastCommitLog();
+  const { hash, gitTag } = lastCommitLog.getLastCommitSync();
+  const lastCommit = { hash };
+  if (gitTag) lastCommit.tag = gitTag;
 
   const { NODE_ENV, HOSTNAME } = process.env;
 

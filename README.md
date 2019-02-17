@@ -67,9 +67,10 @@ Additional properties when the app is in a git repository
 
 ## Contributors
 
-| Name                | Website                 |
-| ------------------- | ----------------------- |
-| **Philipp Kursawe** | <https://pke.github.io> |
+| Name                | Website                    |
+| ------------------- | -------------------------- |
+| **Nick Baugh**      | <https://niftylettuce.com> |
+| **Philipp Kursawe** | <https://pke.github.io>    |
 
 
 ## License
