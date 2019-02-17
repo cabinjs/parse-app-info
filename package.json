@@ -8,7 +8,7 @@
     "verbose": true
   },
   "bugs": {
-    "url": "https://github.com/pke/parse-app-info/issues",
+    "url": "https://github.com/cabinjs/parse-app-info/issues",
     "email": "phil.kursawe@gmail.com"
   },
   "commitlint": {
@@ -20,16 +20,16 @@
     "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)"
   ],
   "dependencies": {
-    "last-commit-log": "^2.0.0",
+    "last-commit-log": "^2.1.0",
     "read-pkg-up": "^4.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "ava": "1.0.1",
+    "ava": "1.2.1",
     "codecov": "latest",
     "cross-env": "latest",
     "eslint": "latest",
@@ -42,7 +42,7 @@
     "nyc": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
-    "testdouble": "3.9.2",
+    "testdouble": "3.10.0",
     "xo": "latest"
   },
   "engines": {
@@ -51,7 +51,7 @@
   "files": [
     "lib"
   ],
-  "homepage": "https://github.com/pke/parse-app-info",
+  "homepage": "https://github.com/cabinjs/parse-app-info",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && npm test",
@@ -107,7 +107,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pke/parse-app-info"
+    "url": "https://github.com/cabinjs/parse-app-info"
   },
   "scripts": {
     "ava": "cross-env NODE_ENV=test ava",

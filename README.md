@@ -1,11 +1,11 @@
 # parse-app-info
 
-[![build status](https://img.shields.io/travis/pke/parse-app-info.svg)](https://travis-ci.com/pke/parse-app-info)
-[![code coverage](https://img.shields.io/codecov/c/github/pke/parse-app-info.svg)](https://codecov.io/gh/pke/parse-app-info)
+[![build status](https://img.shields.io/travis/cabinjs/parse-app-info.svg)](https://travis-ci.com/cabinjs/parse-app-info)
+[![code coverage](https://img.shields.io/codecov/c/github/cabinjs/parse-app-info.svg)](https://codecov.io/gh/cabinjs/parse-app-info)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
-[![license](https://img.shields.io/github/license/pke/parse-app-info.svg)](LICENSE)
+[![license](https://img.shields.io/github/license/cabinjs/parse-app-info.svg)](LICENSE)
 
 > parse information about an application process
 
