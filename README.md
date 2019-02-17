@@ -39,10 +39,7 @@ yarn add parse-app-info
 ```js
 const parseAppInfo = require('parse-app-info');
 
-(async () => {
-  const appInfo = await parseAppInfo();
-  console.log('appInfo', appInfo);
-})();
+const appInfo = parseAppInfo();
 ```
 
 
