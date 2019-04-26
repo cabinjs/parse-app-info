@@ -22,15 +22,15 @@
   ],
   "dependencies": {
     "last-commit-log": "^2.1.0",
-    "read-pkg-up": "^4.0.0"
+    "read-pkg-up": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "ava": "1.2.1",
+    "ava": "1.4.1",
     "codecov": "latest",
     "cross-env": "latest",
     "eslint": "latest",
@@ -43,7 +43,7 @@
     "nyc": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
-    "testdouble": "3.10.0",
+    "testdouble": "3.11.0",
     "xo": "latest"
   },
   "engines": {
