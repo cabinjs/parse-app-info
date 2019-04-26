@@ -1,7 +1,7 @@
 {
   "name": "parse-app-info",
   "description": "parse information about an application process",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)",
   "ava": {
     "failFast": true,
