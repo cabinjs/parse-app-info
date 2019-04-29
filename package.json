@@ -25,9 +25,9 @@
     "read-pkg-up": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "ava": "1.4.1",
@@ -35,6 +35,7 @@
     "cross-env": "latest",
     "eslint": "latest",
     "eslint-config-xo-lass": "latest",
+    "eslint-plugin-compat": "^3.1.1",
     "eslint-plugin-node": "^8.0.1",
     "fixpack": "latest",
     "husky": "latest",
@@ -47,7 +48,7 @@
     "xo": "latest"
   },
   "engines": {
-    "node": ">=8.8.1"
+    "node": ">=6.4.0"
   },
   "files": [
     "lib"
