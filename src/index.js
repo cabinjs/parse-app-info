@@ -1,5 +1,6 @@
 const readPkgUp = require('read-pkg-up');
 const LastCommitLog = require('last-commit-log');
+const debug = require('debug')('parse-app-info');
 
 //
 // Information about the app.
@@ -21,7 +22,14 @@ const LastCommitLog = require('last-commit-log');
 function parseAppInfo() {
   const packageInfo = readPkgUp.sync();
   const lastCommitLog = new LastCommitLog();
-  const { hash, gitTag } = lastCommitLog.getLastCommitSync();
+  let hash;
+  let gitTag;
+  try {
+    ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
+  } catch (err) {
+    debug(err);
+  }
+
   const lastCommit = { hash };
   if (gitTag) lastCommit.tag = gitTag;
 

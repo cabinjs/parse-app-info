@@ -21,6 +21,7 @@
     "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)"
   ],
   "dependencies": {
+    "debug": "^4.1.1",
     "last-commit-log": "^2.1.0",
     "read-pkg-up": "^5.0.0"
   },
