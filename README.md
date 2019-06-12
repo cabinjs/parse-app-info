@@ -7,7 +7,7 @@
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
 [![license](https://img.shields.io/github/license/cabinjs/parse-app-info.svg)](LICENSE)
 
-> parse information about an application process
+> Parse information about a [Node][] application process and its environment. Made for [Cabin][].
 
 
 ## Table of Contents
@@ -80,3 +80,7 @@ Additional properties when the app is in a git repository
 [npm]: https://www.npmjs.com/
 
 [yarn]: https://yarnpkg.com/
+
+[cabin]: https://cabinjs.com
+
+[node]: https://nodejs.org

@@ -1,6 +1,6 @@
 {
   "name": "parse-app-info",
-  "description": "parse information about an application process",
+  "description": "Parse information about a Node application process and its environment. Made for Cabin.",
   "version": "2.0.3",
   "author": "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)",
   "ava": {
