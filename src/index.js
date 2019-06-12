@@ -21,6 +21,17 @@ const debug = require('debug')('parse-app-info');
 // Retrieves informations about the current running app.
 function parseAppInfo() {
   const packageInfo = readPkgUp.sync();
+  const info = {};
+  if (
+    typeof packageInfo === 'object' &&
+    typeof packageInfo.package === 'object'
+  ) {
+    if (typeof packageInfo.package.name === 'string')
+      info.name = packageInfo.package.name;
+    if (typeof packageInfo.package.version === 'string')
+      info.version = packageInfo.package.version;
+  }
+
   const lastCommitLog = new LastCommitLog();
   let hash;
   let gitTag;
@@ -36,8 +47,7 @@ function parseAppInfo() {
   const { NODE_ENV, HOSTNAME } = process.env;
 
   return {
-    name: packageInfo.pkg.name,
-    version: packageInfo.pkg.version,
+    ...info,
     node: process.version,
     ...lastCommit,
     environment: NODE_ENV || 'development',

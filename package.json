@@ -5,7 +5,10 @@
   "author": "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)",
   "ava": {
     "failFast": true,
-    "verbose": true
+    "verbose": true,
+    "helpers": [
+      "test/helpers/**/*"
+    ]
   },
   "bugs": {
     "url": "https://github.com/cabinjs/parse-app-info/issues",
@@ -23,21 +26,20 @@
   "dependencies": {
     "debug": "^4.1.1",
     "last-commit-log": "^2.1.0",
-    "read-pkg-up": "^5.0.0"
+    "read-pkg-up": "^6.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
-    "ava": "1.4.1",
+    "ava": "2.1.0",
     "codecov": "latest",
     "cross-env": "latest",
     "eslint": "latest",
     "eslint-config-xo-lass": "latest",
-    "eslint-plugin-compat": "^3.1.1",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^9.1.0",
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
@@ -45,7 +47,7 @@
     "nyc": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
-    "testdouble": "3.11.0",
+    "testdouble": "3.12.0",
     "xo": "latest"
   },
   "engines": {
