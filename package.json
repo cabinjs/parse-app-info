@@ -43,7 +43,7 @@
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
-    "mocked-env": "1.2.4",
+    "mocked-env": "1.3.1",
     "nyc": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
