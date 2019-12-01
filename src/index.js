@@ -24,12 +24,12 @@ function parseAppInfo() {
   const info = {};
   if (
     typeof packageInfo === 'object' &&
-    typeof packageInfo.package === 'object'
+    typeof packageInfo.packageJson === 'object'
   ) {
-    if (typeof packageInfo.package.name === 'string')
-      info.name = packageInfo.package.name;
-    if (typeof packageInfo.package.version === 'string')
-      info.version = packageInfo.package.version;
+    if (typeof packageInfo.packageJson.name === 'string')
+      info.name = packageInfo.packageJson.name;
+    if (typeof packageInfo.packageJson.version === 'string')
+      info.version = packageInfo.packageJson.version;
   }
 
   const lastCommitLog = new LastCommitLog();
