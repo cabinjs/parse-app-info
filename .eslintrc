@@ -1,6 +1,7 @@
 {
   "extends": ["eslint:recommended", "plugin:node/recommended"],
   "rules": {
-    "node/no-unsupported-features/es-builtins": "warn"
+    "node/no-unsupported-features/es-builtins": "warn",
+    "no-unsafe-finally": "off"
   }
 }

@@ -25,13 +25,14 @@
   ],
   "dependencies": {
     "debug": "^4.1.1",
-    "last-commit-log": "^2.1.0",
-    "read-pkg-up": "^7.0.0"
+    "last-commit-log": "^3.0.4",
+    "lodash": "^4.17.15",
+    "read-pkg-up": "^7.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "@commitlint/cli": "latest",
     "@commitlint/config-conventional": "latest",
     "ava": "2.4.0",
@@ -39,7 +40,7 @@
     "cross-env": "latest",
     "eslint": "latest",
     "eslint-config-xo-lass": "latest",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.1.0",
     "fixpack": "latest",
     "husky": "latest",
     "lint-staged": "latest",
@@ -47,11 +48,11 @@
     "nyc": "latest",
     "remark-cli": "latest",
     "remark-preset-github": "latest",
-    "testdouble": "3.12.4",
+    "testdouble": "3.16.0",
     "xo": "latest"
   },
   "engines": {
-    "node": ">=6.4.0"
+    "node": ">=7.0.0"
   },
   "files": [
     "lib"
