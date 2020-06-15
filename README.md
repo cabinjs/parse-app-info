@@ -53,6 +53,8 @@ const appInfo = parseAppInfo();
 | node        | Version if node.js running the app  |
 | pid         | Process ID as in `process.pid`      |
 | version     | Version of the app `package.json`   |
+| cluster     | Cluster info of the app             |
+| os          | OS info of the app                  |
 
 Additional properties when the app is in a git repository
 
