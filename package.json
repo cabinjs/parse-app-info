@@ -27,7 +27,8 @@
     "debug": "^4.1.1",
     "last-commit-log": "^3.0.4",
     "lodash": "^4.17.15",
-    "read-pkg-up": "^7.0.1"
+    "read-pkg-up": "^7.0.1",
+    "snyk": "^1.339.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
@@ -111,7 +112,9 @@
     "lint": "xo && remark . -qfo && eslint lib",
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "test": "npm run build && npm run lint && npm run ava",
-    "test-coverage": "npm run build && npm run lint && npm run nyc"
+    "test-coverage": "npm run build && npm run lint && npm run nyc",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "xo": {
     "prettier": true,
@@ -119,5 +122,6 @@
     "extends": [
       "xo-lass"
     ]
-  }
+  },
+  "snyk": true
 }
