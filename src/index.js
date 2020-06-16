@@ -28,7 +28,7 @@ const OS_METHODS = [
 
 // `os.version` added in 13.11.0
 // https://nodejs.org/api/os.html#os_os_version
-if (semver.satisfies(process.version, 'v13.11.0')) {
+if (semver.satisfies(process.version, '>=13.11.0')) {
   OS_METHODS.push('version');
 }
 
