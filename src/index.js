@@ -5,6 +5,7 @@ const LastCommitLog = require('last-commit-log');
 const _ = require('lodash');
 const debug = require('debug')('parse-app-info');
 const readPkgUp = require('read-pkg-up');
+const semver = require('semver');
 
 const OS_METHODS = [
   'arch',
@@ -22,9 +23,14 @@ const OS_METHODS = [
   'totalmem',
   'type',
   'uptime',
-  'userInfo', // => user
-  'version'
+  'userInfo' // => user
 ];
+
+// `os.version` added in 13.11.0
+// https://nodejs.org/api/os.html#os_os_version
+if (semver.satisfies(process.version, 'v13.11.0')) {
+  OS_METHODS.push('version');
+}
 
 //
 // Information about the app.
