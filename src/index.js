@@ -123,7 +123,7 @@ function parseAppInfo() {
     node: process.version,
     ...lastCommit,
     environment: NODE_ENV || 'development',
-    hostname: HOSTNAME || require('os').hostname(),
+    hostname: HOSTNAME || os.hostname(),
     pid: process.pid,
     cluster: _cluster,
     os: _os
