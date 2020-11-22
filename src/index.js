@@ -1,5 +1,6 @@
 const cluster = require('cluster');
 const os = require('os');
+const worker_threads = require('worker_threads');
 
 const LastCommitLog = require('last-commit-log');
 const _ = require('lodash');
@@ -118,15 +119,37 @@ function parseAppInfo() {
     _os[key] = os[method]();
   }
 
+  // worker_threads
+  let _worker_threads = {};
+  if (semver.satisfies(process.version, '>=10.5.0')) {
+    _worker_threads = _.pick(worker_threads, [
+      'isMainThread',
+      semver.satisfies(process.version, '>=12.16.0') && 'resourceLimits',
+      semver.satisfies(process.version, '>=11.14.0') && 'SHARE_ENV',
+      'threadId',
+      'workerData'
+    ]);
+
+    if (_.isObject(_worker_threads.resourceLimits)) {
+      _worker_threads.resourceLimits = _.pick(_worker_threads.resourceLimits, [
+        'maxYoungGenerationSizeMb',
+        'maxOldGenerationSizeMb',
+        'codeRangeSizeMb',
+        'stackSizeMb'
+      ]);
+    }
+  }
+
   return {
     ...info,
     node: process.version,
     ...lastCommit,
     environment: NODE_ENV || 'development',
-    hostname: HOSTNAME || require('os').hostname(),
+    hostname: HOSTNAME || os.hostname(),
     pid: process.pid,
     cluster: _cluster,
-    os: _os
+    os: _os,
+    worker_threads: _worker_threads
   };
 }
 
