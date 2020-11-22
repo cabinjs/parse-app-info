@@ -1,12 +1,15 @@
 const cluster = require('cluster');
 const os = require('os');
-const worker_threads = require('worker_threads');
 
 const LastCommitLog = require('last-commit-log');
 const _ = require('lodash');
 const debug = require('debug')('parse-app-info');
 const readPkgUp = require('read-pkg-up');
 const semver = require('semver');
+
+const hasWorkerThreads = semver.satisfies(process.version, '>=10.5.0');
+let worker_threads;
+if (hasWorkerThreads) worker_threads = require('worker_threads');
 
 const OS_METHODS = [
   'arch',
@@ -52,6 +55,7 @@ if (semver.satisfies(process.version, '>=13.11.0')) {
 //
 
 // Retrieves informations about the current running app.
+// eslint-disable-next-line complexity
 function parseAppInfo() {
   const packageInfo = readPkgUp.sync();
   const info = {};
@@ -121,7 +125,7 @@ function parseAppInfo() {
 
   // worker_threads
   let _worker_threads = {};
-  if (semver.satisfies(process.version, '>=10.5.0')) {
+  if (hasWorkerThreads) {
     _worker_threads = _.pick(worker_threads, [
       'isMainThread',
       semver.satisfies(process.version, '>=12.16.0') && 'resourceLimits',
