@@ -129,7 +129,6 @@ function parseAppInfo() {
     _worker_threads = _.pick(worker_threads, [
       'isMainThread',
       semver.satisfies(process.version, '>=12.16.0') && 'resourceLimits',
-      semver.satisfies(process.version, '>=11.14.0') && 'SHARE_ENV',
       'threadId',
       'workerData'
     ]);
