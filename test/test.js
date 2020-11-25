@@ -1,7 +1,7 @@
 const test = require('ava');
 const td = require('testdouble');
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   t.context.LastCommitLog = td.replace('last-commit-log');
   t.context.parseAppInfo = require('..');
 });
@@ -10,14 +10,14 @@ test.afterEach(() => {
   td.reset();
 });
 
-test('does not include missing git info', t => {
+test('does not include missing git info', (t) => {
   td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({});
   const appInfo = t.context.parseAppInfo();
   t.is(appInfo.hash, undefined);
   t.is(appInfo.tag, undefined);
 });
 
-test('does not include missing git tag', t => {
+test('does not include missing git tag', (t) => {
   td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({
     hash: 0xdeadbeadd00de
   });
@@ -26,7 +26,7 @@ test('does not include missing git tag', t => {
   t.is(appInfo.tag, undefined);
 });
 
-test('returns this packages info', t => {
+test('returns this packages info', (t) => {
   td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({
     hash: 0xdeadbeadd00de,
     gitTag: '1.0.2'

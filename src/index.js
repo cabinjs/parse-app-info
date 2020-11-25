@@ -7,8 +7,9 @@ const debug = require('debug')('parse-app-info');
 const readPkgUp = require('read-pkg-up');
 const semver = require('semver');
 
-const hasWorkerThreads = semver.satisfies(process.version, '>=10.5.0');
+const hasWorkerThreads = semver.satisfies(process.version, '>=12.11.0');
 let worker_threads;
+// eslint-disable-next-line node/no-unsupported-features/node-builtins
 if (hasWorkerThreads) worker_threads = require('worker_threads');
 
 const OS_METHODS = [
@@ -55,7 +56,6 @@ if (semver.satisfies(process.version, '>=13.11.0')) {
 //
 
 // Retrieves informations about the current running app.
-// eslint-disable-next-line complexity
 function parseAppInfo() {
   const packageInfo = readPkgUp.sync();
   const info = {};
@@ -144,8 +144,10 @@ function parseAppInfo() {
   }
 
   return {
+    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     ...info,
     node: process.version,
+    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     ...lastCommit,
     environment: NODE_ENV || 'development',
     hostname: HOSTNAME || os.hostname(),

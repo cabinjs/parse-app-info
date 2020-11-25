@@ -77,7 +77,7 @@ Additional properties when the app is in a git repository
 [MIT](LICENSE) © [Philipp Kursawe](https://pke.github.io)
 
 
-## 
+##
 
 [npm]: https://www.npmjs.com/
 

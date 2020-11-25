@@ -3,7 +3,7 @@ const mockedEnv = require('mocked-env');
 
 const parseAppInfo = require('..');
 
-test.afterEach(t => {
+test.afterEach((t) => {
   t.context.restoreEnv();
 });
 
