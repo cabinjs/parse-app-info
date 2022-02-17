@@ -1,3 +1,5 @@
+const process = require('process');
+
 const test = require('ava');
 const td = require('testdouble');
 
@@ -19,16 +21,16 @@ test('does not include missing git info', (t) => {
 
 test('does not include missing git tag', (t) => {
   td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({
-    hash: 0xdeadbeadd00de
+    hash: 0xd_ea_db_ea_dd_00_de
   });
   const appInfo = t.context.parseAppInfo();
-  t.is(appInfo.hash, 0xdeadbeadd00de);
+  t.is(appInfo.hash, 0xd_ea_db_ea_dd_00_de);
   t.is(appInfo.tag, undefined);
 });
 
 test('returns this packages info', (t) => {
   td.when(t.context.LastCommitLog.prototype.getLastCommitSync()).thenReturn({
-    hash: 0xdeadbeadd00de,
+    hash: 0xd_ea_db_ea_dd_00_de,
     gitTag: '1.0.2'
   });
   const appInfo = t.context.parseAppInfo();
@@ -37,6 +39,6 @@ test('returns this packages info', (t) => {
   t.is(appInfo.hostname, require('os').hostname());
   t.is(appInfo.pid, process.pid);
   t.is(appInfo.name, 'parse-app-info');
-  t.is(appInfo.hash, 0xdeadbeadd00de);
+  t.is(appInfo.hash, 0xd_ea_db_ea_dd_00_de);
   t.is(appInfo.tag, '1.0.2');
 });

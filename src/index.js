@@ -1,9 +1,9 @@
+const process = require('process');
 const cluster = require('cluster');
 const os = require('os');
 
 const LastCommitLog = require('last-commit-log');
 const _ = require('lodash');
-const debug = require('debug')('parse-app-info');
 const readPkgUp = require('read-pkg-up');
 const semver = require('semver');
 
@@ -56,8 +56,14 @@ if (semver.satisfies(process.version, '>=13.11.0')) {
 //
 
 // Retrieves informations about the current running app.
+// eslint-disable-next-line complexity
 function parseAppInfo() {
-  const packageInfo = readPkgUp.sync();
+  let packageInfo = {};
+  try {
+    packageInfo = readPkgUp.sync();
+    // eslint-disable-next-line no-unused-vars
+  } catch (err) {}
+
   const info = {};
   if (
     typeof packageInfo === 'object' &&
@@ -74,9 +80,8 @@ function parseAppInfo() {
   let gitTag;
   try {
     ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
-  } catch (err) {
-    debug(err);
-  }
+    // eslint-disable-next-line no-unused-vars
+  } catch (err) {}
 
   const lastCommit = { hash };
   if (gitTag) lastCommit.tag = gitTag;
@@ -117,9 +122,28 @@ function parseAppInfo() {
   const _os = {};
   for (const method of OS_METHODS) {
     let key = method;
-    if (method === 'getPriority') key = 'priority';
-    else if (method === 'networkInterfaces') key = 'network_interfaces';
-    else if (method === 'userInfo') key = 'user';
+    switch (method) {
+      case 'getPriority': {
+        key = 'priority';
+        break;
+      }
+
+      case 'networkInterfaces': {
+        key = 'network_interfaces';
+        break;
+      }
+
+      case 'userInfo': {
+        key = 'user';
+        break;
+      }
+
+      default: {
+        key = method;
+        break;
+      }
+    }
+
     _os[key] = os[method]();
   }
 
