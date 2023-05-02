@@ -1,7 +1,6 @@
 # parse-app-info
 
-[![build status](https://img.shields.io/travis/cabinjs/parse-app-info.svg)](https://travis-ci.com/cabinjs/parse-app-info)
-[![code coverage](https://img.shields.io/codecov/c/github/cabinjs/parse-app-info.svg)](https://codecov.io/gh/cabinjs/parse-app-info)
+[![build status](https://github.com/cabinjs/parse-app-info/actions/workflows/ci.yml/badge.svg)](https://github.com/cabinjs/parse-app-info/actions/workflows/ci.yml)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
@@ -27,12 +26,6 @@
 npm install parse-app-info
 ```
 
-[yarn][]:
-
-```sh
-yarn add parse-app-info
-```
-
 
 ## Usage
 
@@ -45,16 +38,17 @@ const appInfo = parseAppInfo();
 
 ## Available info
 
-| Property    | Description                         |
-| ----------- | ----------------------------------- |
-| environment | The value of NODE_ENV               |
-| hostname    | Name of the computer                |
-| name        | Name of the app from `package.json` |
-| node        | Version if node.js running the app  |
-| pid         | Process ID as in `process.pid`      |
-| version     | Version of the app `package.json`   |
-| cluster     | Cluster info of the app             |
-| os          | OS info of the app                  |
+| Property    | Description                                                                              |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| environment | The value of `process.env.NODE_ENV` or defaults to "development"                         |
+| hostname    | Hostame of the computer (uses `process.env.HOSTNAME` or defaults to `os.hostname()`)     |
+| ip          | IP address of the computer (uses `process.env.IP_ADDRESS` or defaults to `ip.address()`) |
+| name        | Name of the app from `package.json`                                                      |
+| node        | Version of Node.js running the app                                                       |
+| pid         | Process ID from `process.pid`                                                            |
+| version     | Version of the app `package.json`                                                        |
+| cluster     | Cluster info of the app                                                                  |
+| os          | OS info of the app                                                                       |
 
 Additional properties when the app is in a git repository
 
@@ -80,8 +74,6 @@ Additional properties when the app is in a git repository
 ##
 
 [npm]: https://www.npmjs.com/
-
-[yarn]: https://yarnpkg.com/
 
 [cabin]: https://cabinjs.com
 

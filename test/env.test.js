@@ -1,6 +1,5 @@
 const test = require('ava');
 const mockedEnv = require('mocked-env');
-
 const parseAppInfo = require('..');
 
 test.afterEach((t) => {
@@ -20,5 +19,5 @@ function run(t, input = [], expected = input) {
 test.serial('custom env vars', run, ['got', 'walder_frey']);
 test('undefined env vars', run, undefined, [
   'development',
-  require('os').hostname()
+  require('node:os').hostname()
 ]);

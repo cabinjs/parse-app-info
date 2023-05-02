@@ -1,5 +1,4 @@
-const process = require('process');
-
+const process = require('node:process');
 const test = require('ava');
 const td = require('testdouble');
 
@@ -36,9 +35,10 @@ test('returns this packages info', (t) => {
   const appInfo = t.context.parseAppInfo();
   t.is(appInfo.node, process.version);
   t.is(appInfo.environment, 'test');
-  t.is(appInfo.hostname, require('os').hostname());
+  t.is(appInfo.hostname, require('node:os').hostname());
   t.is(appInfo.pid, process.pid);
   t.is(appInfo.name, 'parse-app-info');
   t.is(appInfo.hash, 0xd_ea_db_ea_dd_00_de);
   t.is(appInfo.tag, '1.0.2');
+  t.is(appInfo.ip, require('ip').address());
 });

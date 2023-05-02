@@ -1,16 +1,17 @@
-const process = require('process');
-const cluster = require('cluster');
-const os = require('os');
-
+const process = require('node:process');
+const cluster = require('node:cluster');
+const os = require('node:os');
 const LastCommitLog = require('last-commit-log');
 const _ = require('lodash');
 const readPkgUp = require('read-pkg-up');
 const semver = require('semver');
+const ip = require('ip');
 
 const hasWorkerThreads = semver.satisfies(process.version, '>=12.11.0');
 let worker_threads;
-// eslint-disable-next-line node/no-unsupported-features/node-builtins
-if (hasWorkerThreads) worker_threads = require('worker_threads');
+if (hasWorkerThreads) worker_threads = require('node:worker_threads');
+
+const usesClusterPrimary = semver.satisfies(process.version, '>=16.0.0');
 
 const OS_METHODS = [
   'arch',
@@ -61,8 +62,7 @@ function parseAppInfo() {
   let packageInfo = {};
   try {
     packageInfo = readPkgUp.sync();
-    // eslint-disable-next-line no-unused-vars
-  } catch (err) {}
+  } catch {}
 
   const info = {};
   if (
@@ -80,17 +80,15 @@ function parseAppInfo() {
   let gitTag;
   try {
     ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
-    // eslint-disable-next-line no-unused-vars
-  } catch (err) {}
+  } catch {}
 
   const lastCommit = { hash };
   if (gitTag) lastCommit.tag = gitTag;
-
-  const { NODE_ENV, HOSTNAME } = process.env;
+  const { NODE_ENV, HOSTNAME, IP_ADDRESS } = process.env;
 
   const _cluster = _.pick(cluster, [
     'worker',
-    'isMaster',
+    usesClusterPrimary ? 'isPrimary' : 'isMaster',
     'isWorker',
     'schedulingPolicy'
   ]);
@@ -168,13 +166,12 @@ function parseAppInfo() {
   }
 
   return {
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     ...info,
     node: process.version,
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     ...lastCommit,
     environment: NODE_ENV || 'development',
     hostname: HOSTNAME || os.hostname(),
+    ip: IP_ADDRESS || ip.address(),
     pid: process.pid,
     cluster: _cluster,
     os: _os,
