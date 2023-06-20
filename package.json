@@ -20,7 +20,7 @@
     "ip": "^1.1.8",
     "last-commit-log": "^3.3.0",
     "lodash": "^4.17.21",
-    "read-pkg-up": "7",
+    "read-pkg-up": "8.0.0",
     "semver": "^7.5.0"
   },
   "devDependencies": {
