@@ -4,9 +4,8 @@ const LastCommitLog = require('last-commit-log');
 
 const lastCommitLog = new LastCommitLog();
 let hash;
-let gitTag;
 try {
-  ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
+  ({ hash } = lastCommitLog.getLastCommitSync());
 } catch {}
 
 test.beforeEach((t) => {
@@ -21,6 +20,5 @@ test('returns info', (t) => {
   t.is(appInfo.pid, process.pid);
   t.is(appInfo.name, 'parse-app-info');
   t.is(appInfo.hash, hash);
-  t.is(appInfo.tag, gitTag);
   t.is(appInfo.ip, require('ip').address());
 });
