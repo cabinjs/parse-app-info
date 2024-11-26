@@ -17,8 +17,8 @@
     "Philipp Kursawe <phil.kursawe@gmail.com> (https://pke.github.io)"
   ],
   "dependencies": {
-    "ip": "^1.1.8",
-    "last-commit-log": "^3.3.0",
+    "ip": "^2.0.1",
+    "last-commit-log": "^3.4.0",
     "lodash": "^4.17.21",
     "read-pkg-up": "7",
     "semver": "^7.5.0"
@@ -38,7 +38,6 @@
     "remark-cli": "^11.0.0",
     "remark-preset-github": "^4.0.4",
     "rimraf": "^5.0.0",
-    "testdouble": "3.17.2",
     "xo": "^0.54.2"
   },
   "engines": {

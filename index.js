@@ -32,6 +32,88 @@ const OS_METHODS = [
   'userInfo' // => user
 ];
 
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const HOSTNAME = process.env.HOSTNAME || os.hostname();
+const IP_ADDRESS = ip.address();
+const PID = process.pid;
+const VERSION = process.version;
+
+//
+// NOTE: this should be static/constant in-memory from when process is started
+//       (it should not change when cwd or files change, only when process reboot)
+//
+// worker_threads
+let _worker_threads = {};
+if (hasWorkerThreads) {
+  _worker_threads = _.pick(worker_threads, [
+    'isMainThread',
+    semver.satisfies(process.version, '>=12.16.0') && 'resourceLimits',
+    'threadId',
+    'workerData'
+  ]);
+
+  if (_.isObject(_worker_threads.resourceLimits)) {
+    _worker_threads.resourceLimits = _.pick(_worker_threads.resourceLimits, [
+      'maxYoungGenerationSizeMb',
+      'maxOldGenerationSizeMb',
+      'codeRangeSizeMb',
+      'stackSizeMb'
+    ]);
+  }
+}
+
+const _cluster = _.pick(cluster, [
+  'worker',
+  usesClusterPrimary ? 'isPrimary' : 'isMaster',
+  'isWorker',
+  'schedulingPolicy'
+]);
+if (_.isObject(_cluster.worker)) {
+  _cluster.worker = _.pick(_cluster.worker, [
+    'id',
+    'process',
+    'exitedAfterDisconnect',
+    'isConnected',
+    'isDead'
+  ]);
+
+  if (_.isObject(_cluster.worker.process)) {
+    _cluster.worker.process = _.pick(_cluster.worker.process, [
+      'pid',
+      'connected',
+      'killed',
+      'signalCode',
+      'exitCode'
+    ]);
+  }
+}
+
+let packageInfo = {};
+try {
+  packageInfo = readPkgUp.sync();
+} catch {}
+
+const info = {};
+if (
+  typeof packageInfo === 'object' &&
+  typeof packageInfo.packageJson === 'object'
+) {
+  if (typeof packageInfo.packageJson.name === 'string')
+    info.name = packageInfo.packageJson.name;
+  if (typeof packageInfo.packageJson.version === 'string')
+    info.version = packageInfo.packageJson.version;
+}
+
+const lastCommitLog = new LastCommitLog();
+let hash;
+let gitTag;
+try {
+  ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
+} catch {}
+
+const lastCommit = { hash };
+if (gitTag) lastCommit.tag = gitTag;
+
 // `os.version` added in 13.11.0
 // https://nodejs.org/api/os.html#os_os_version
 if (semver.satisfies(process.version, '>=13.11.0')) {
@@ -57,60 +139,8 @@ if (semver.satisfies(process.version, '>=13.11.0')) {
 //
 
 // Retrieves informations about the current running app.
-// eslint-disable-next-line complexity
 function parseAppInfo() {
-  let packageInfo = {};
-  try {
-    packageInfo = readPkgUp.sync();
-  } catch {}
-
-  const info = {};
-  if (
-    typeof packageInfo === 'object' &&
-    typeof packageInfo.packageJson === 'object'
-  ) {
-    if (typeof packageInfo.packageJson.name === 'string')
-      info.name = packageInfo.packageJson.name;
-    if (typeof packageInfo.packageJson.version === 'string')
-      info.version = packageInfo.packageJson.version;
-  }
-
-  const lastCommitLog = new LastCommitLog();
-  let hash;
-  let gitTag;
-  try {
-    ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
-  } catch {}
-
-  const lastCommit = { hash };
-  if (gitTag) lastCommit.tag = gitTag;
-  const { NODE_ENV, HOSTNAME, IP_ADDRESS } = process.env;
-
-  const _cluster = _.pick(cluster, [
-    'worker',
-    usesClusterPrimary ? 'isPrimary' : 'isMaster',
-    'isWorker',
-    'schedulingPolicy'
-  ]);
   if (_.isObject(_cluster.worker)) {
-    _cluster.worker = _.pick(_cluster.worker, [
-      'id',
-      'process',
-      'exitedAfterDisconnect',
-      'isConnected',
-      'isDead'
-    ]);
-
-    if (_.isObject(_cluster.worker.process)) {
-      _cluster.worker.process = _.pick(_cluster.worker.process, [
-        'pid',
-        'connected',
-        'killed',
-        'signalCode',
-        'exitCode'
-      ]);
-    }
-
     if (_.isFunction(_cluster.worker.isConnected))
       _cluster.worker.isConnected = _cluster.worker.isConnected();
     if (_.isFunction(_cluster.worker.isDead))
@@ -145,34 +175,14 @@ function parseAppInfo() {
     _os[key] = os[method]();
   }
 
-  // worker_threads
-  let _worker_threads = {};
-  if (hasWorkerThreads) {
-    _worker_threads = _.pick(worker_threads, [
-      'isMainThread',
-      semver.satisfies(process.version, '>=12.16.0') && 'resourceLimits',
-      'threadId',
-      'workerData'
-    ]);
-
-    if (_.isObject(_worker_threads.resourceLimits)) {
-      _worker_threads.resourceLimits = _.pick(_worker_threads.resourceLimits, [
-        'maxYoungGenerationSizeMb',
-        'maxOldGenerationSizeMb',
-        'codeRangeSizeMb',
-        'stackSizeMb'
-      ]);
-    }
-  }
-
   return {
     ...info,
-    node: process.version,
+    node: VERSION,
     ...lastCommit,
-    environment: NODE_ENV || 'development',
-    hostname: HOSTNAME || os.hostname(),
-    ip: IP_ADDRESS || ip.address(),
-    pid: process.pid,
+    environment: NODE_ENV,
+    hostname: HOSTNAME,
+    ip: IP_ADDRESS,
+    pid: PID,
     cluster: _cluster,
     os: _os,
     worker_threads: _worker_threads
