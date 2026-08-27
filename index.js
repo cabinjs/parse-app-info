@@ -1,11 +1,10 @@
 const process = require('node:process');
 const cluster = require('node:cluster');
 const os = require('node:os');
-const LastCommitLog = require('last-commit-log');
+const { execFileSync } = require('node:child_process');
 const _ = require('lodash');
 const readPkgUp = require('read-pkg-up');
 const semver = require('semver');
-const ip = require('ip');
 
 const hasWorkerThreads = semver.satisfies(process.version, '>=12.11.0');
 let worker_threads;
@@ -32,9 +31,32 @@ const OS_METHODS = [
   'userInfo' // => user
 ];
 
+function getIpAddress() {
+  const interfaces = os.networkInterfaces();
+  for (const addresses of Object.values(interfaces)) {
+    for (const address of addresses || []) {
+      const family =
+        address.family === 4 || address.family === 'IPv4' ? 'IPv4' : 'IPv6';
+      if (family === 'IPv4' && !address.internal) return address.address;
+    }
+  }
+
+  return '127.0.0.1';
+}
+
+function getGitValue(arguments_) {
+  return execFileSync('git', arguments_, {
+    cwd: process.cwd(),
+    maxBuffer: 1024 * 1024 * 1024,
+    stdio: ['ignore', 'pipe', 'ignore']
+  })
+    .toString()
+    .trim();
+}
+
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const HOSTNAME = process.env.HOSTNAME || os.hostname();
-const IP_ADDRESS = ip.address();
+const IP_ADDRESS = getIpAddress();
 const PID = process.pid;
 const VERSION = process.version;
 
@@ -104,11 +126,11 @@ if (
     info.version = packageInfo.packageJson.version;
 }
 
-const lastCommitLog = new LastCommitLog();
 let hash;
 let gitTag;
 try {
-  ({ hash, gitTag } = lastCommitLog.getLastCommitSync());
+  hash = getGitValue(['log', '-1', '--pretty=format:%H']);
+  gitTag = getGitValue(['tag', '--contains', 'HEAD']);
 } catch {}
 
 const lastCommit = { hash };
